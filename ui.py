@@ -12,7 +12,7 @@ from graphrag.query.llm.oai.chat_openai import ChatOpenAI
 from graphrag.query.llm.oai.typing import OpenaiApiType
 from graphrag.query.structured_search.global_search.search import GlobalSearch
 
-from graphrag.query.structured_search.global_search.community_context import GlobalCommunityContext
+from global_context import GlobalCommunityContext
 from vector_store import (load_data, setup_vector_store)
 
 
@@ -188,14 +188,6 @@ def render_chat_interface():
             st.session_state.messages.append({"role": "assistant", "content": response})
             if search_mode == "global" or search_mode == "global-dynamic":
                 st.write(response)
-                if 'reports' in result.context_data.keys():
-                    with st.expander("View Source Data"):
-                        st.write(result.context_data["reports"])
-
-            # Display context data
-            if 'sources' in result.context_data.keys():
-                with st.expander("View Source Data"):
-                    st.write(result.context_data['sources'])
 
             # Display LLM calls and tokens
             latency = round(result.completion_time, 2)

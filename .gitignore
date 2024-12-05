@@ -167,3 +167,4 @@ indexing/input
 indexing/cache
 indexing/logs
 indexing/settings.yaml
+lancedb
