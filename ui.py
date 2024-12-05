@@ -207,7 +207,7 @@ def render_chat_interface():
 
     response_type = "Single Paragraph"
 
-    community_level = 2
+    community_level = 4
 
     dynamic_config = {}
 
@@ -220,7 +220,7 @@ def render_chat_interface():
 
     dynamic_config['num_repeats'] = 1
 
-    dynamic_config['max_level'] = 2
+    dynamic_config['max_level'] = 4
 
     dynamic_config['concurrent_coroutines'] = 20
 
