@@ -12,8 +12,8 @@ from graphrag.query.llm.oai.chat_openai import ChatOpenAI
 from graphrag.query.llm.oai.typing import OpenaiApiType
 from graphrag.query.structured_search.global_search.search import GlobalSearch
 
-from global_context import GlobalCommunityContext
-from vector_store import (load_data, setup_vector_store, get_embedder)
+from graphrag.query.structured_search.global_search.community_context import GlobalCommunityContext
+from vector_store import (load_data, setup_vector_store)
 
 
 def setup_logging(
