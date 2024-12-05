@@ -114,90 +114,6 @@ def load_base_documents(base_documents):
         return None
 
 
-def build_filter_reports_context(
-        old_context,  # GlobalCommunityContext
-        text_embedder,
-        query: str,
-        report_embeddings_store,
-        communities,
-        vector_store_threshold: float = 0.1  # Default to 10%
-):  # Returns GlobalCommunityContext
-    """
-    Build a new GlobalCommunityContext with filtered reports and updated dynamic_community_selection.
-
-    Args:
-        old_context: Original GlobalCommunityContext instance
-        text_embedder: Text embedding model
-        query: Query text to filter against
-        report_embeddings_store: Store containing report embeddings
-        communities: List of communities
-        vector_store_threshold: Similarity threshold for filtering (default: 0.1)
-
-    Returns:
-        New GlobalCommunityContext instance with filtered reports
-    """
-    # Get all reports from the original context
-    all_reports = old_context.community_reports
-
-    print(len(all_reports))
-
-    k = max(1, int(len(all_reports) * vector_store_threshold))
-
-    # Perform similarity search
-    search_results = report_embeddings_store.similarity_search_by_text(
-        text=query,
-        text_embedder=lambda t: text_embedder.embed(t),
-        k=k
-    )
-
-    filter_report_ids = []
-    filter_community_ids = []
-
-    for result in search_results:
-        title = result.document.attributes['title']
-        score = result.score
-        logging.info(f"title: {title}, score: {score}")
-        filter_report_ids.append(result.document.id)
-        filter_community_ids.append(result.document.attributes['community_id'])
-
-
-
-    filtered_reports = [
-        report for report in all_reports
-        if report.id in filter_report_ids
-    ]
-
-    filter_communities = [
-        community for community in communities
-        if community.short_id in filter_community_ids
-    ]
-
-    # Prepare dynamic_community_selection_kwargs based on the old context's settings
-    dynamic_community_selection_kwargs = {
-        "llm": old_context.dynamic_community_selection.llm,
-        "token_encoder": old_context.dynamic_community_selection.token_encoder,
-        "rate_query": old_context.dynamic_community_selection.rate_query,
-        "use_summary": old_context.dynamic_community_selection.use_summary,
-        "threshold": old_context.dynamic_community_selection.threshold,
-        "keep_parent": old_context.dynamic_community_selection.keep_parent,
-        "num_repeats": old_context.dynamic_community_selection.num_repeats,
-        "max_level": old_context.dynamic_community_selection.max_level,
-        "concurrent_coroutines": old_context.dynamic_community_selection.semaphore._value,
-        "llm_kwargs": old_context.dynamic_community_selection.llm_kwargs,
-    }
-    new_context = GlobalCommunityContext(
-        community_reports=filtered_reports,
-        communities=filter_communities,
-        entities=old_context.entities,
-        token_encoder=old_context.token_encoder,
-        dynamic_community_selection=True,
-        dynamic_community_selection_kwargs=dynamic_community_selection_kwargs,
-        random_state=old_context.random_state,
-    )
-
-    return new_context
-
-
 def render_chat_interface():
     """Render the chat interface page."""
     # Chat interface sidebar options
@@ -235,7 +151,6 @@ def render_chat_interface():
     )
 
     token_encoder = tiktoken.get_encoding("cl100k_base")
-    text_embedder = get_embedder()
 
     # Load data and setup vector store
     with st.spinner("Loading data and setting up vector store..."):
