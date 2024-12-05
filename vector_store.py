@@ -128,34 +128,13 @@ def setup_vector_store(input_dir, community_level):
     report_embedding_store = LanceDBVectorStore(collection_name="report_description_embeddings")
     report_embedding_store.connect(db_uri=LANCEDB_URI)
 
-    # Check if collections exist and have data
-    description_collection_exists = check_collection_exists(description_embedding_store)
-    report_collection_exists = check_collection_exists(report_embedding_store)
+    entities, _, reports, _, _ = load_data(input_dir, community_level)
+    entity_description_embeddings = store_entity_semantic_embeddings(
+        entities=entities,
+        vectorstore=description_embedding_store
+    )
 
-    if not description_collection_exists or not report_collection_exists:
-        # Load data only if we need to rebuild collections
-        entities, _, reports, _, _ = load_data(input_dir, community_level)
-
-        if not description_collection_exists:
-            entity_description_embeddings = store_entity_semantic_embeddings(
-                entities=entities,
-                vectorstore=description_embedding_store
-            )
-        else:
-            entity_description_embeddings = description_embedding_store
-
-        if not report_collection_exists:
-            reports_embeddings = store_reports_semantic_embeddings(reports, report_embedding_store)
-        else:
-            logging.info("use already exits embeddings")
-            reports_embeddings = report_embedding_store
-
-    else:
-        # If both collections exist, just return the stores
-        entity_description_embeddings = description_embedding_store
-        reports_embeddings = report_embedding_store
-
-    return description_embedding_store, entity_description_embeddings, report_embedding_store
+    return description_embedding_store, entity_description_embeddings
 
 
 def check_collection_exists(vector_store: LanceDBVectorStore) -> bool:

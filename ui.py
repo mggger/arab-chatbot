@@ -240,7 +240,7 @@ def render_chat_interface():
     # Load data and setup vector store
     with st.spinner("Loading data and setting up vector store..."):
         entities, communities, reports, relationships, text_units = load_data(input_dir, community_level)
-        description_embedding_store, entity_description_embeddings, report_embedding_store = setup_vector_store(
+        description_embedding_store, entity_description_embeddings = setup_vector_store(
             input_dir,
             community_level
         )
@@ -263,16 +263,6 @@ def render_chat_interface():
             )
 
             async def perform_search():
-                old_context = search_engine.context_builder
-                filter_context = build_filter_reports_context(old_context, text_embedder,
-                                                                  user_query,
-                                                                  report_embedding_store,
-                                                                  communities,
-                                                                  vector_store_threshold=dynamic_config.get(
-                                                                      'vector_store_threshold', 0.1)
-                                                                  )
-                search_engine.context_builder = filter_context
-
                 result = await search_engine.asearch(user_query)
                 return result
 
