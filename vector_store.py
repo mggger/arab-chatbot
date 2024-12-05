@@ -90,7 +90,7 @@ def load_data(input_dir, community_level):
     if check_collection_exists(report_embedding_store):
         # no more need to embeddings again
         logging.info("No need to embedding reports, directly read from vector store")
-        reports_embedding = read_indexer_reports(report_df, entity_df, community_level)
+        reports_embedding = read_indexer_reports(report_df, entity_df, community_level, True)
     else:
         reports_embedding = embedding_reports(report_df, entity_df)
 
