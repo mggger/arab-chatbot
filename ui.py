@@ -213,7 +213,7 @@ def render_chat_interface():
 
     dynamic_config['use_summary'] = True
 
-    dynamic_config['vector_store_threshold'] = "0.2"
+    dynamic_config['vector_store_threshold'] = 0.5
 
     dynamic_config['threshold'] = 1
     dynamic_config['keep_parent'] = False
