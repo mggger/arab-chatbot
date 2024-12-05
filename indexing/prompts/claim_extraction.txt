@@ -1,3 +1,4 @@
+
 -Target activity-
 You are an intelligent assistant that helps a human analyst to analyze claims against certain entities presented in a text document.
 
@@ -42,24 +43,6 @@ Output:
 {record_delimiter}
 (PERSON C{tuple_delimiter}NONE{tuple_delimiter}CORRUPTION{tuple_delimiter}SUSPECTED{tuple_delimiter}2015-01-01T00:00:00{tuple_delimiter}2015-12-30T00:00:00{tuple_delimiter}Person C was suspected of engaging in corruption activities in 2015{tuple_delimiter}The company is owned by Person C who was suspected of engaging in corruption activities in 2015)
 {completion_delimiter}
-
--Arabic Language Processing-
-For Arabic language processing:
-1. The output claims should be in Arabic, while keeping the same structured format
-2. Entity names should be properly transliterated into Arabic, maintaining their original meaning
-3. Claim types should be translated to Arabic equivalents
-4. Claim statuses remain as **TRUE**, **FALSE**, or **SUSPECTED**
-5. Dates remain in ISO-8601 format
-6. Claim descriptions and source texts should be fully translated to Arabic
-7. All delimiters ({tuple_delimiter}, {record_delimiter}, {completion_delimiter}) remain unchanged
-8. Right-to-left (RTL) text direction should be properly maintained in the output
-9. When processing Arabic text input, maintain proper handling of Arabic diacritics and special characters
-10. For organizations or proper nouns that have official Arabic names, use the official Arabic names instead of transliteration
-
-Note: The format structure and logic of claim extraction remain identical - only the language of the output changes to Arabic.
-
-Example of Arabic output format:
-(شركة أ{tuple_delimiter}هيئة حكومية ب{tuple_delimiter}ممارسات مناهضة للمنافسة{tuple_delimiter}TRUE{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}2022-01-10T00:00:00{tuple_delimiter}تم اكتشاف أن شركة أ تورطت في ممارسات مناهضة للمنافسة لأنها غُرمت بسبب التلاعب في العطاءات{tuple_delimiter}وفقاً لمقال نُشر في 2022/01/10، تم تغريم شركة أ بسبب التلاعب في العطاءات)
 
 -Real Data-
 Use the following input for your answer.
