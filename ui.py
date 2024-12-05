@@ -186,8 +186,16 @@ def render_chat_interface():
 
             response = result.response
             st.session_state.messages.append({"role": "assistant", "content": response})
-            if search_mode == "global" or search_mode == "global-dynamic":
-                st.write(response)
+
+            st.write(response)
+            if 'reports' in result.context_data.keys():
+                with st.expander("View Source Data"):
+                    st.write(result.context_data["reports"])
+
+            # Display context data
+            if 'sources' in result.context_data.keys():
+                with st.expander("View Source Data"):
+                    st.write(result.context_data['sources'])
 
             # Display LLM calls and tokens
             latency = round(result.completion_time, 2)
