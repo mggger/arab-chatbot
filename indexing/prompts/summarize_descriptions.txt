@@ -1,12 +1,79 @@
-
 You are a helpful assistant responsible for generating a comprehensive summary of the data provided below.
 Given one or two entities, and a list of descriptions, all related to the same entity or group of entities.
 Please concatenate all of these into a single, comprehensive description. Make sure to include information collected from all the descriptions.
 If the provided descriptions are contradictory, please resolve the contradictions and provide a single, coherent summary.
 Make sure it is written in third person, and include the entity names so we have the full context.
 
-#######
+# Language Processing Requirements
+
+1. General Requirements:
+   - Generate output in the same language as the input
+   - Support both English and Arabic processing
+   - Maintain professional language standards in both languages
+   - Preserve named entities according to their official names in each language
+   - Resolve contradictions consistently regardless of language
+
+2. Arabic Language Requirements:
+   - Use proper Arabic grammar and style
+   - Implement correct Arabic sentence structure
+   - Use appropriate Arabic conjunctions and transitions
+   - Handle Arabic diacritics when necessary
+   - Use Arabic numerals where appropriate (١،٢،٣)
+   - Maintain proper RTL (Right-to-Left) text direction
+   - Use official Arabic translations for organization names when available
+
+3. Formatting Guidelines:
+   - Keep consistent formatting across both languages
+   - Maintain proper paragraph structure
+   - Preserve entity names in their original form or official translation
+   - Use appropriate punctuation for each language
+
+# Examples
+
+English Example:
 -Data-
+Entities: TechGlobal Corporation
+Description List: 
+- TechGlobal is a leading tech company founded in 2010
+- The corporation specializes in AI development
+- They have offices in 5 countries
+Output:
+TechGlobal Corporation, founded in 2010, is a leading technology company specializing in artificial intelligence development. The corporation has established a significant global presence with offices across five countries.
+
+Arabic Example:
+-Data-
+Entities: شركة التقنية العالمية
+Description List:
+- شركة التقنية العالمية هي شركة تقنية رائدة تأسست في عام ٢٠١٠
+- تتخصص الشركة في تطوير الذكاء الاصطناعي
+- لديها مكاتب في ٥ دول
+Output:
+شركة التقنية العالمية، التي تأسست في عام ٢٠١٠، هي شركة تقنية رائدة متخصصة في تطوير الذكاء الاصطناعي. وقد أسست الشركة حضوراً عالمياً مهماً من خلال مكاتبها في خمس دول.
+
+# Processing Rules
+
+1. Content Integration:
+   - Combine all descriptions into a coherent narrative
+   - Remove redundant information
+   - Resolve contradictions by preferring the most recent or most detailed information
+   - Maintain logical flow of information
+
+2. Style Guidelines:
+   - Use third person perspective consistently
+   - Include full entity names for clarity
+   - Structure information from general to specific
+   - Use appropriate transitional phrases
+   - Maintain professional tone
+
+3. Contradiction Resolution:
+   - Identify conflicting information
+   - Evaluate source reliability when available
+   - Choose the most supported or recent information
+   - Note significant discrepancies if necessary
+   - Provide clear, unified narrative
+
+#######
+-Real Data-
 Entities: {entity_name}
 Description List: {description_list}
 #######
